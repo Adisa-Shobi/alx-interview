@@ -17,7 +17,7 @@ def minOperations(n, ops=0):
 #            n = n / clipboard
 #        clipboard += 1
 #    return ops
-    if (n == 1 or n == 0):
+    if (n == 1 or n == 0 or type(n) != int):
         return 0
     for i in range(2, (n // 2) + 1)[::-1]:
         if n % i == 0:
