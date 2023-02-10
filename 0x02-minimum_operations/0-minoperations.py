@@ -9,15 +9,7 @@ def minOperations(n, ops=0):
     '''
     number of operations required to get n Hs
     '''
-#    ops = 0
-#    clipboard = 2
-#    while n > 1:
-#        while n % clipboard == 0:
-#            ops += clipboard
-#            n = n / clipboard
-#        clipboard += 1
-#    return ops
-    if (n == 1 or n == 0 or type(n) != int):
+    if (n <= 1):
         return 0
     for i in range(2, (n // 2) + 1)[::-1]:
         if n % i == 0:
