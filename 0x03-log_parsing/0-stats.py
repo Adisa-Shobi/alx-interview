@@ -33,8 +33,10 @@ if __name__ == "__main__":
                     i -= 1
             print("File size: {}".format(total_size))
             for code in code_count:
-                print("{}: {}".format(code, code_count[code]))
+                if code_count[code] > 0:
+                    print("{}: {}".format(code, code_count[code]))
     except KeyboardInterrupt:
         print("File size: {}".format(total_size))
         for code in code_count:
-            print("{}: {}".format(code, code_count[code]))
+            if code_count[code] > 0:
+                print("{}: {}".format(code, code_count[code]))
