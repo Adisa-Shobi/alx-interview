@@ -24,14 +24,18 @@ def leadingOnes(b):
     '''
     Calculates number of bytes of character
     '''
-    byte = bin(b).replace('0b', '').rjust(8, '0')
-    count = 0
-    byte_str = str(byte)
-    if byte_str[0] == "0":
-        return 0
     for i in range(8):
-        if byte_str[i] == "1":
-            count += 1
-        else:
-            return count
+        if b >> 7 - i == 0b11111111 >> 7 - i & ~1:
+            return i
     return 8
+#    byte = bin(b).replace('0b', '').rjust(8, '0')
+#    count = 0
+#    byte_str = str(byte)
+#    if byte_str[0] == "0":
+#        return 0
+#    for i in range(8):
+#        if byte_str[i] == "1":
+#            count += 1
+#        else:
+#            return count
+#    return 8
