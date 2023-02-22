@@ -8,32 +8,30 @@ def validUTF8(data):
     '''
     verify utf-8 compatibility
     '''
+    data = iter(data)
     for i in data:
-        binary_i = decimalToBinary(i)
-        no_byte = charLength(binary_i)
-        if not no_byte or no_byte > 4 or len(str(binary_i)) > 8:
+        no_byte = leadingOnes(i)
+        if no_byte in [1, 7, 8]:
             return False
+        for j in range(no_byte - 1):
+            trail = next(data, None)
+            if trail is None or trail >> 6 != 0b10:
+                return False
     return True
 
 
-def decimalToBinary(n):
-    '''
-    Converts a decimal to binary
-    '''
-    return bin(n).replace("0b", "")
-
-
-def charLength(b):
+def leadingOnes(b):
     '''
     Calculates number of bytes of character
     '''
+    byte = bin(b).replace('0b', '').rjust(8, '0')
     count = 0
-    binary_digits = str(b)
-    if binary_digits[0] == '0':
-        return 1
-    for char in binary_digits:
-        if char == '1':
+    byte_str = str(byte)
+    if byte_str[0] == "0":
+        return 0
+    for i in range(8):
+        if byte_str[i] == "1":
             count += 1
-        elif char == '0':
+        else:
             return count
-    return None
+    return 8
