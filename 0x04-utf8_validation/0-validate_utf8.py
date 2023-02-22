@@ -11,7 +11,7 @@ def validUTF8(data):
     data = iter(data)
     for i in data:
         no_byte = leadingOnes(i)
-        if no_byte in [1, 7, 8]:
+        if no_byte in [1, 5, 6, 7, 8]:
             return False
         for j in range(no_byte - 1):
             trail = next(data, None)
@@ -24,18 +24,14 @@ def leadingOnes(b):
     '''
     Calculates number of bytes of character
     '''
+    byte = bin(b).replace('0b', '').rjust(8, '0')
+    count = 0
+    byte_str = str(byte)
+    if byte_str[0] == "0":
+        return 0
     for i in range(8):
-        if b >> 7 - i == 0b11111111 >> 7 - i & ~1:
-            return i
+        if byte_str[i] == "1":
+            count += 1
+        else:
+            return count
     return 8
-#    byte = bin(b).replace('0b', '').rjust(8, '0')
-#    count = 0
-#    byte_str = str(byte)
-#    if byte_str[0] == "0":
-#        return 0
-#    for i in range(8):
-#        if byte_str[i] == "1":
-#            count += 1
-#        else:
-#            return count
-#    return 8
