@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-'''
+"""
 N queens puzzle is the challenge of placing N
 non-attacking queens on an N×N chessboard
-'''
+"""
 import sys
 from typing import List
 
@@ -10,8 +10,8 @@ results = []
 
 
 def add_solution(board: List[List[str]]):
-    '''Adds completed solution to results
-    '''
+    """Adds completed solution to results
+    """
     length = len(board)
     sub = []
     for i in range(length):
@@ -22,15 +22,15 @@ def add_solution(board: List[List[str]]):
 
 
 def nqueens(n: int):
-    '''Backtracking to find solutions to N queens
-    '''
+    """Backtracking to find solutions to N queens
+    """
     # Create an empty board
     board = [['.' for i in range(n)] for j in range(n)]
     # Define helper functions
 
     def is_valid(row, col):
-        '''checks if position is safe to place queen
-        '''
+        """checks if position is safe to place queen
+        """
         for i in range(n):
             if board[i][col] == 'Q':
                 return False
@@ -41,8 +41,8 @@ def nqueens(n: int):
         return True
 
     def backtrack(row):
-        '''Locates plausible solutions
-        '''
+        """Locates plausible solutions
+        """
         if row == n:
             # Found a solution, print it
             add_solution(board)
