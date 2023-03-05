@@ -4,12 +4,11 @@ N queens puzzle is the challenge of placing N
 non-attacking queens on an N×N chessboard
 """
 import sys
-from typing import List
 
 results = []
 
 
-def add_solution(board: List[List[str]]):
+def add_solution(board):
     """Adds completed solution to results
     """
     length = len(board)
@@ -21,14 +20,14 @@ def add_solution(board: List[List[str]]):
     results.append(sub)
 
 
-def nqueens(n: int):
+def nqueens(n):
     """Backtracking to find solutions to N queens
     """
     # Create an empty board
     board = [['.' for i in range(n)] for j in range(n)]
     # Define helper functions
 
-    def is_valid(row: int, col: int):
+    def is_valid(row, col):
         """checks if position is safe to place queen
         """
         for i in range(n):
@@ -40,7 +39,7 @@ def nqueens(n: int):
                 return False
         return True
 
-    def backtrack(row: int):
+    def backtrack(row):
         """Locates plausible solutions
         """
         if row == n:
