@@ -28,7 +28,7 @@ def nqueens(n: int):
     board = [['.' for i in range(n)] for j in range(n)]
     # Define helper functions
 
-    def is_valid(row, col):
+    def is_valid(row: int, col: int):
         """checks if position is safe to place queen
         """
         for i in range(n):
@@ -40,7 +40,7 @@ def nqueens(n: int):
                 return False
         return True
 
-    def backtrack(row):
+    def backtrack(row: int):
         """Locates plausible solutions
         """
         if row == n:
