@@ -6,77 +6,70 @@ non-attacking queens on an N×N chessboard
 import sys
 from typing import List
 
-
 results = []
-def solve_n_queens(n):
+
+
+def add_solution(board: List[List[str]]):
+    '''Adds completed solution to results
     '''
-    Driver code for util function
+    length = len(board)
+    sub = []
+    for i in range(length):
+        for j in range(length):
+            if board[i][j] == "Q":
+                sub.append([i, j])
+    results.append(sub)
+
+
+def nqueens(n: int):
+    '''Backtracking to find solutions to N queens
     '''
-    results.clear()
-    board = [[0] * n for i in range(n)]
-    solve_n_util(board, 0)
-    results.sort()
-    return results
+    # Create an empty board
+    board = [['.' for i in range(n)] for j in range(n)]
+    # Define helper functions
 
-
-def is_safe(board: List[List[int]], row: int, col: int):
-    '''
-    checks if position is safe for queen
-    '''
-    for i in range(col):
-        if board[row][i]:
-            return False
-
-    i = row
-    j = col
-    while i >= 0 and j >= 0:
-        if board[i][j]:
-            return False
-        i -= 1
-        j -= 1
-
-    i = row
-    j = col
-    while j >= 0 and i < len(board):
-        if board[i][j]:
-            return False
-        i += 1
-        j -= 1
-
-    return True
-
-
-def solve_n_util(board, col):
-    '''
-    Solves n queens using backtracking
-    '''
-    print(col)
-    size = len(board)
-    if col == size - 1:
-        sub = []
-        for i in range(size):
-            for j in range(size):
-                if board[i][j] == 1:
-                    sub.append([i, j])
-        results.append(sub)
+    def is_valid(row, col):
+        '''checks if position is safe to place queen
+        '''
+        for i in range(n):
+            if board[i][col] == 'Q':
+                return False
+            if row-i >= 0 and col-i >= 0 and board[row-i][col-i] == 'Q':
+                return False
+            if row-i >= 0 and col+i < n and board[row-i][col+i] == 'Q':
+                return False
         return True
 
-    res = False
-    for i in range(size):
-        if (is_safe(board, i, col)):
-            board[i][col] = 1
+    def backtrack(row):
+        '''Locates plausible solutions
+        '''
+        if row == n:
+            # Found a solution, print it
+            add_solution(board)
+            return
+        for col in range(n):
+            if is_valid(row, col):
+                board[row][col] = 'Q'
+                backtrack(row + 1)
+                board[row][col] = '.'
+    # Start the search
+    backtrack(0)
 
-            res = solve_n_util(board, col + 1) or res
 
-            board[i][col] = 0
-
-    return res
-
-arg_len = len(sys.argv)
-if arg_len != 2:
+# Parse the command-line arguments
+if len(sys.argv) != 2:
     print("Usage: nqueens N")
-    exit(1)
-else:
-    board_size = int(sys.argv[1])
-    res = solve_n_queens(board_size)
-    print(res)
+    sys.exit(1)
+try:
+    n = int(sys.argv[1])
+except ValueError:
+    print("N must be a number")
+    sys.exit(1)
+if n < 4:
+    print("N must be at least 4")
+    sys.exit(1)
+
+# Solve the problem
+nqueens(n)
+for soln in results:
+    print(soln)
