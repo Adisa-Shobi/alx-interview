@@ -20,6 +20,8 @@ def isWinner(x, nums):
     '''
     Solves the prime game between Maria an Ben
     '''
+    if x == 0 or len(nums) != x:
+        return None
     result = {"Maria": 0, "Ben": 0}
     for i in range(x):
         primes = []
