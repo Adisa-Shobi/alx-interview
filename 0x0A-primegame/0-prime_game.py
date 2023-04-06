@@ -30,5 +30,9 @@ def isWinner(x, nums):
             result['Ben'] += 1
         else:
             result['Maria'] += 1
-    winner = 'Maria' if result['Maria'] >= result['Ben'] else 'Ben'
-    return winner
+    if result['Maria'] > result['Ben']:
+        return 'Maria'
+    elif result['Maria'] < result['Ben']:
+        return 'Ben'
+    else:
+        return None
