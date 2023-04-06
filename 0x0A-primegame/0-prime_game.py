@@ -25,8 +25,6 @@ def isWinner(x, nums):
     result = {"Maria": 0, "Ben": 0}
     for i in range(x):
         primes = []
-        if nums[i] < 1:
-            return None
         for j in range(1, nums[i] + 1):
             if is_prime(j):
                 primes.append(j)
